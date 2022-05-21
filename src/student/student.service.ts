@@ -27,7 +27,8 @@ export class StudentService {
   }
 
   findAll() {
-    return `This action returns all student`;
+    const students = this.studentRepository.find();
+    return students;
   }
 
   findOne(id: number) {
@@ -35,7 +36,7 @@ export class StudentService {
       where: {
         id: id
       }
-    })
+    });
     return student;
   }
 
@@ -58,6 +59,8 @@ export class StudentService {
   }
 
   remove(id: number) {
-    return `This action removes a #${id} student`;
+    // @ts-ignore
+    this.studentRepository.remove({id});
+    return "Student has been deleted";
   }
 }
