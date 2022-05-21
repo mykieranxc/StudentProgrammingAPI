@@ -31,11 +31,30 @@ export class StudentService {
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} student`;
+    const student = this.studentRepository.findOne({
+      where: {
+        id: id
+      }
+    })
+    return student;
   }
 
-  update(id: number, updateStudentInput: UpdateStudentInput) {
-    return `This action updates a #${id} student`;
+  async update(updateStudentInput: UpdateStudentInput) {
+    const  student = await this.studentRepository.findOne({
+      where: {
+        id: updateStudentInput.id
+      }
+    });
+
+    student.name = updateStudentInput.name;
+    student.age = updateStudentInput.age;
+    student.codeExperience = updateStudentInput.codeExperience;
+    student.codeLanguage = updateStudentInput.codeLanguage;
+    student.reason = updateStudentInput.reason;
+
+    await  this.studentRepository.save(student);
+
+    return student;
   }
 
   remove(id: number) {

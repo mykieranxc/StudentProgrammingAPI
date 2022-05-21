@@ -13,19 +13,19 @@ export class StudentResolver {
     return this.studentService.create(createStudentInput);
   }
 
-  @Query(() => [Student], { name: 'student' })
+  @Query(() => [Student], { name: 'allStudents' })
   findAll() {
     return this.studentService.findAll();
   }
 
-  @Query(() => Student, { name: 'student' })
+  @Query(() => Student, { name: 'studentById' })
   findOne(@Args('id', { type: () => Int }) id: number) {
     return this.studentService.findOne(id);
   }
 
   @Mutation(() => Student)
   updateStudent(@Args('updateStudentInput') updateStudentInput: UpdateStudentInput) {
-    return this.studentService.update(updateStudentInput.id, updateStudentInput);
+    return this.studentService.update(updateStudentInput);
   }
 
   @Mutation(() => Student)
